@@ -5,31 +5,33 @@ import LoginPage from "./Login";
 import RegistrationPage from "./Registration";
 import ManagerPage from "./ManagerSession";
 
-function renderPage(component){
-    render(component, document.getElementById("page-container"));
-}
 
- class PageManager extends React.Component{//THIS IS D MAIN COMPONENT
+ class PageManager extends React.Component{
     constructor(){
         super();
-        this.state = {loginStatus:"LoggedIn"};
-        this.userId;
-        this.staffCategory;
+        this.state = {
+            userId:window.sessionStorage.getItem('accessToken'),
+            staffCategory: sessionStorage.getItem('staffCategory')
+        };
+        this.handleLogin =  this.handleLogin.bind(this);
+        this.handleLogout =  this.handleLogout.bind(this);
     }
 
-    handleLogin(){
-        this.setState({loginStatus:"LoggedIn"});
-        this.state.loginStatus = "LoggedIn";
-        //this.forceUpdate();
+    handleLogin(credentials){
+        this.setState({userId: credentials.userId});
+    }
+    handleLogout(){
+        this.setState({userId: null})
     }
 
     render(){
-        if (this.state.loginStatus == "NotLoggedIn"){
-            return <LoginPage onClick = {()=> this.handleLogin()}/>
-        }
-        else if(this.state.loginStatus == "LoggedIn"){
-            return <ManagerPage/>
-        }
+        return (
+            <div>
+            {this.state.userId ? 
+               <ManagerPage logout={this.handleLogout}/>: <LoginPage onClick = {this.handleLogin}/>
+            }
+            </div>
+        )        
     }
 }
 
