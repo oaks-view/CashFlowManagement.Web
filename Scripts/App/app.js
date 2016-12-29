@@ -12,7 +12,7 @@ function renderPage(component){
  class PageManager extends React.Component{//THIS IS D MAIN COMPONENT
     constructor(){
         super();
-        this.state = {loginStatus:"NotLoggedIn"};
+        this.state = {loginStatus:"LoggedIn"};
         this.userId;
         this.staffCategory;
     }

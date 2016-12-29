@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import ReactDOM from "react-dom";
 import {render} from "react-dom";
+import IncomeModal from "./modals";
 
 class HighlightDisplay extends React.Component{
     constructor(){
@@ -14,6 +15,9 @@ class HighlightDisplay extends React.Component{
             "November", "December"
             ];
     }
+    showModal(){
+        //this.props.
+    }
     render(){
         return (
             <div className= "card medium pink-grey darken-1">
@@ -26,7 +30,7 @@ class HighlightDisplay extends React.Component{
                     {/*new line*/}
                 </div>
                 <div className="card-action">
-                    <a href="#">Add New {this.props.values.category}</a>
+                    <button onClick={this.props.showModal()}>Add New {this.props.values.category}</button>
                     <a href="#">See Your Saved {this.props.values.category}</a>
                 </div>
             </div>
@@ -36,6 +40,15 @@ class HighlightDisplay extends React.Component{
 
 
 class ManagerPage extends React.Component{
+    constructor(){
+        super();
+        this.IncomeModal = <IncomeModal showModal ={this.showModal}/>;
+    }
+
+    showModal(){
+        const modal = document.getElementById("income-modal");
+        modal.modal("open");
+    }
     render(){
         return (
             <div>
@@ -80,6 +93,7 @@ class ManagerPage extends React.Component{
                             <HighlightDisplay values={{category:"Expense", value:"35,000"}}/>
                         </div>
                     </div>
+                    <IncomeModal showModal={this.showModal}/>
                 </div>
 
     
